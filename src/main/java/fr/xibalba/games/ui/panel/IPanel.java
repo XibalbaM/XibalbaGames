@@ -6,6 +6,9 @@ import javafx.scene.layout.GridPane;
 public interface IPanel {
 
     void init(PanelManager manager);
+
+    void doSize();
+
     GridPane getLayout();
     void onShow();
     void onRefresh();

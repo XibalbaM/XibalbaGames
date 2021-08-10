@@ -1,24 +1,13 @@
 package fr.xibalba.games.ui;
 
+import com.guigarage.responsive.ResponsiveHandler;
 import fr.xibalba.games.main.Const;
 import fr.xibalba.games.main.GameCore;
 import fr.xibalba.games.ui.panel.IPanel;
 import fr.xibalba.games.ui.panel.Panel;
-import javafx.css.ParsedValue;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.PixelBuffer;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import libs.arilibfx.AriLibFX;
-import libs.arilibfx.ui.utils.ResizeHelper;
-
-import java.nio.ByteBuffer;
 
 public class PanelManager {
 
@@ -41,19 +30,25 @@ public class PanelManager {
         this.stage.centerOnScreen();
 
         this.layout = new GridPane();
-        //this.layout.setStyle(AriLibFX.setResponsiveBackground(Const.BACKGROUND_URL));
 
         this.scene = new Scene(this.layout, 1000, 600);
         this.stage.setScene(this.scene);
+        ResponsiveHandler.addResponsiveToWindow(this.stage);
 
         this.stage.setMinWidth(500);
         this.stage.setWidth(1000);
         this.stage.setMinHeight(300);
         this.stage.setHeight(600);
 
-        ResizeHelper.addResizeListener(stage, 500, 300, Integer.MAX_VALUE, Integer.MAX_VALUE);
+        this.stage.widthProperty().addListener((observable, oldValue, newValue) -> this.onResize());
+        this.stage.heightProperty().addListener((observable, oldValue, newValue) -> this.onResize());
 
         this.stage.show();
+    }
+
+    private void onResize() {
+
+        this.currentPanel.doSize();
     }
 
     public void showPanel(IPanel panel) {
@@ -69,6 +64,7 @@ public class PanelManager {
         this.currentPanel = panel;
         if (init)
             panel.init(this);
+        currentPanel.doSize();
         panel.onShow();
     }
 
@@ -86,6 +82,7 @@ public class PanelManager {
         this.layout.getChildren().add(panel.getLayout());
         this.currentPanel = panel;
         currentPanel.init(this);
+        currentPanel.doSize();
         currentPanel.onRefresh();
     }
 

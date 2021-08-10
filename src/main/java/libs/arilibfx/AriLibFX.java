@@ -8,8 +8,6 @@ import libs.arilibfx.utils.AriLogger;
 
 public class AriLibFX {
 
-    private static String programName;
-    private static String resourcePath;
     public static final AriLogger LOGGER = new AriLogger("AriLibFX");
     public static String setResponsiveBackground(String url) {
 
@@ -26,16 +24,4 @@ public class AriLibFX {
                 + "-fx-backgound-position: center center;"
                 + "-fx-background-size: cover;";
     }
-
-    public static void setProgramName(String programName) { AriLibFX.programName = programName; }
-
-    public static String getProgramName() {
-        if (programName == null)
-            return "";
-        return programName;
-    }
-    public static void setResourcePath(String resourcePath) {
-        AriLibFX.resourcePath = resourcePath.endsWith("/") ? resourcePath.substring(0, resourcePath.length() - 1) : resourcePath;
-    }
-    public static String getResourcePath() {return resourcePath;}
 }

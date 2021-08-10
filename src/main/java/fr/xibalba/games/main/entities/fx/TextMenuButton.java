@@ -12,24 +12,28 @@ import javafx.scene.text.Text;
 public class TextMenuButton extends StackPane {
 
     private String name;
+    private Rectangle rectangle;
+    private Text text;
 
     public TextMenuButton(String name, double width, double height) {
+
         this(name, Font.font(20), width, height);
     }
 
     public TextMenuButton(String name, Font font, double width, double height) {
 
         this.name = name;
+        this.setPrefSize(width, height);
 
-        Text text = new Text(name);
+        text = new Text(name);
         text.setFont(font);
         text.setFill(Color.WHITE);
 
-        Rectangle rectangle = new Rectangle(width, height);
+        rectangle = new Rectangle(width, height);
         rectangle.setOpacity(1);
         rectangle.setFill(Color.gray(0.05));
-        rectangle.setArcHeight(50);
-        rectangle.setArcWidth(50);
+        rectangle.setArcHeight(90);
+        rectangle.setArcWidth(90);
         rectangle.setStrokeType(StrokeType.OUTSIDE);
         rectangle.setStroke(Color.gray(0.8));
         rectangle.setStrokeWidth(3);
@@ -45,5 +49,18 @@ public class TextMenuButton extends StackPane {
         });
 
         this.getChildren().addAll(rectangle, text);
+    }
+
+    public void setSize(double width, double height) {
+
+        this.setSize(width, height, text.getFont());
+    }
+
+    public void setSize(double width, double height, Font font) {
+
+        this.setPrefSize(width, height);
+        text.setFont(font);
+        rectangle.setWidth(width);
+        rectangle.setHeight(height);
     }
 }

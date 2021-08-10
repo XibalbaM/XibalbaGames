@@ -86,6 +86,11 @@
             <version>0.9.12</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.guigarage</groupId>
+            <artifactId>responsivefx</artifactId>
+            <version>0.8</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,13 +1,10 @@
 package fr.xibalba.games.main.panels;
 
-import fr.xibalba.games.main.Const;
 import fr.xibalba.games.main.GameCore;
 import fr.xibalba.games.main.entities.Game;
 import fr.xibalba.games.main.entities.fx.GameView;
-import fr.xibalba.games.main.entities.fx.ImageMenuButton;
 import fr.xibalba.games.main.entities.fx.TextMenuButton;
 import fr.xibalba.games.ui.PanelManager;
-import fr.xibalba.games.ui.panel.Panel;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
@@ -19,13 +16,6 @@ import javafx.scene.text.Font;
 
 public class GamesListPanel extends AMenuPanel {
 
-    private final Panel oldPanel;
-
-    public GamesListPanel(Panel lastPanel) {
-
-        this.oldPanel = lastPanel;
-    }
-
     @Override
     public void init(PanelManager panelManager) {
 
@@ -34,16 +24,16 @@ public class GamesListPanel extends AMenuPanel {
         TextMenuButton back = new TextMenuButton("BACK", Font.font(35), 150, 35);
         back.setTranslateX(20);
         back.setTranslateY(545);
-        back.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(this.oldPanel, false));
+        back.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(new MainMenuPanel()));
 
-        ImageMenuButton test = new ImageMenuButton(Const.AXIUM_LOGO, 30 + 10, 30 + 10);
+        /*ImageMenuButton test = new ImageMenuButton(Const.AXIUM_LOGO, 30 + 10, 30 + 10);
         test.setTranslateX(20);
         test.setTranslateY(20);
-        test.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(this.oldPanel, false));
+        test.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(this.oldPanel, false));*/
 
         this.initGameList();
 
-        this.root.getChildren().addAll(back, test);
+        this.root.getChildren().addAll(back);
     }
 
     private void initGameList() {
@@ -71,7 +61,7 @@ public class GamesListPanel extends AMenuPanel {
         for (Game game : GameCore.getGames()) {
 
             GameView view = GameView.gameToView(game);
-            view.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(new GameLoadError(game, this)));
+            view.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(new GameLoadError(game)));
             gameList.getChildren().add(view);
         }
 

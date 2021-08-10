@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.util.Duration;
 
-public class Panel implements IPanel{
+public class Panel implements IPanel {
 
     protected GridPane layout = new GridPane();
     protected PanelManager panelManager;
@@ -20,11 +20,13 @@ public class Panel implements IPanel{
         this.panelManager = panelManager;
         GridPane.setHgrow(layout, Priority.ALWAYS);
         GridPane.setVgrow(layout, Priority.ALWAYS);
+    }
 
-        layout.setMinWidth(1000);
-        layout.setMaxWidth(1000);
-        layout.setMinHeight(600);
-        layout.setMaxHeight(600);
+    @Override
+    public void doSize() {
+
+        layout.setPrefWidth(GameCore.getPanelManager().getStage().getWidth());
+        layout.setPrefHeight(GameCore.getPanelManager().getStage().getHeight());
     }
 
     @Override
