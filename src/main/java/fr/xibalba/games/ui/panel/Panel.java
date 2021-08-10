@@ -1,7 +1,10 @@
 package fr.xibalba.games.ui.panel;
 
+import fr.xibalba.games.main.Const;
+import fr.xibalba.games.main.GameCore;
 import fr.xibalba.games.ui.PanelManager;
 import javafx.animation.FadeTransition;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.util.Duration;
@@ -32,6 +35,8 @@ public class Panel implements IPanel{
 
     @Override
     public void onShow() {
+
+        GameCore.getPanelManager().getLayout().setBackground(new Background(Const.responsiveBackgroundImage(Const.BACKGROUND)));
 
         System.out.println("Showing " + getName());
         FadeTransition transition = new FadeTransition(Duration.seconds(1), this.layout);
