@@ -41,6 +41,12 @@ public class GameCore {
             loadGamesThread = new Thread(() -> {
 
                 games = GameDetection.getGames(modsDirectory);
+                games.add(new Game(null, "", "", null));
+                games.add(new Game(null, "", "", null));
+                games.add(new Game(null, "", "", null));
+                games.add(new Game(null, "", "", null));
+                games.add(new Game(null, "", "", null));
+                games.add(new Game(null, "", "", null));
                 System.out.println(games.size());
             }, "loadGamesThread");
             loadGamesThread.start();

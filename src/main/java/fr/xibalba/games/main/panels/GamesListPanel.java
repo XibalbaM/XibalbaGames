@@ -14,14 +14,25 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static fr.xibalba.games.main.GameCore.getHeight;
+import static fr.xibalba.games.main.GameCore.getWidth;
+
 public class GamesListPanel extends AMenuPanel {
+
+    private TextMenuButton back;
+    private ScrollPane scrollPane;
+    private VBox gameList;
+    private List<GameView> gameViews = new ArrayList<>();
 
     @Override
     public void init(PanelManager panelManager) {
 
         super.init(panelManager);
 
-        TextMenuButton back = new TextMenuButton("BACK", Font.font(35), 150, 35);
+        back = new TextMenuButton("BACK", Font.font(35), 150, 35);
         back.setTranslateX(20);
         back.setTranslateY(545);
         back.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(new MainMenuPanel()));
@@ -38,23 +49,14 @@ public class GamesListPanel extends AMenuPanel {
 
     private void initGameList() {
 
-        ScrollPane scrollPane = new ScrollPane();
+        scrollPane = new ScrollPane();
         scrollPane.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
         scrollPane.getStylesheets().add(this.getClass().getResource("scrollpane.css").toExternalForm());
-        scrollPane.setMinWidth(600);
-        scrollPane.setMaxWidth(600);
-        scrollPane.setMinHeight(panelManager.getStage().getMinHeight() - 60);
-        scrollPane.setMaxHeight(panelManager.getStage().getMaxHeight() - 60);
-        scrollPane.setTranslateX(200);
-        scrollPane.setTranslateY(30);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        VBox gameList = new VBox();
-        gameList.setMinWidth(600);
-        gameList.setMaxWidth(600);
-        gameList.setMinWidth(panelManager.getStage().getMinHeight());
-        gameList.setMaxWidth(panelManager.getStage().getMinHeight());
+        gameList = new VBox();
+        gameList.setPrefWidth(getWidth() * 0.6);
         gameList.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
         gameList.setStyle("-fx-background-color: transparent");
 
@@ -62,11 +64,38 @@ public class GamesListPanel extends AMenuPanel {
 
             GameView view = GameView.gameToView(game);
             view.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(new GameLoadError(game)));
+            gameViews.add(view);
             gameList.getChildren().add(view);
         }
 
         scrollPane.setContent(gameList);
         this.root.getChildren().add(scrollPane);
+    }
+
+    @Override
+    public void doSize() {
+
+        super.doSize();
+
+        back.setSize(getWidth() * 0.17, getHeight() * 0.066, Font.font(getHeight() * 0.045));
+        back.setTranslateX(getWidth() * 0.02);
+        back.setTranslateY(getHeight() * 0.85);
+
+        this.doGameListSize();
+    }
+
+    private void doGameListSize() {
+
+        scrollPane.setPrefWidth(getWidth() * 0.6);
+        scrollPane.setPrefHeight(getHeight() - (getHeight() * 0.15));
+        scrollPane.setTranslateX((getWidth() - scrollPane.getPrefWidth()) / 2);
+        scrollPane.setTranslateY(getHeight() * 0.05);
+
+        gameList.setPrefWidth(getWidth() * 0.6);
+
+        for (GameView gameView : this.gameViews) {
+            gameView.doSize();
+        }
     }
 
     @Override
