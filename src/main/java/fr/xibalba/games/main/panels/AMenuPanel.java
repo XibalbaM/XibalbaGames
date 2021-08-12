@@ -24,6 +24,6 @@ public abstract class AMenuPanel extends Panel {
 
         super.onShow();
 
-        GameCore.getPanelManager().getLayout().setBackground(new Background(Const.responsiveBackgroundImage(Const.MENU_BACKGROUND)));
+        GameCore.getPanelManager().getCenterPanel().setBackground(new Background(Const.responsiveBackgroundImage(Const.MENU_BACKGROUND)));
     }
 }

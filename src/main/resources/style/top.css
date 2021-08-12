@@ -1,0 +1,28 @@
+﻿.menu-bar {
+    -fx-background-color: transparent;
+}
+
+.menu-bar .menu .label {
+    -fx-text-fill: #808080;
+    -fx-font-size: 14px;
+}
+
+.menu-bar .menu:hover .label {
+    -fx-text-fill: white;
+}
+
+.menu-bar .menu {
+    -fx-background-color: rgb(31, 35, 37);
+}
+
+.menu-bar .menu .radio-menu-item {
+    -fx-background-color: rgb(31, 35, 37);
+}
+
+.menu-bar .menu .radio-menu-item * {
+    colo: #bcc6e7;
+}
+
+.menu-bar .menu * {
+    -fx-background-color: rgb(31, 35, 37);
+}

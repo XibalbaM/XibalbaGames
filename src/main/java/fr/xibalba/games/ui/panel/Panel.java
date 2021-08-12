@@ -38,7 +38,7 @@ public class Panel implements IPanel {
     @Override
     public void onShow() {
 
-        GameCore.getPanelManager().getLayout().setBackground(new Background(Const.responsiveBackgroundImage(Const.BACKGROUND)));
+        GameCore.getPanelManager().getCenterPanel().setBackground(new Background(Const.responsiveBackgroundImage(Const.BACKGROUND)));
 
         System.out.println("Showing " + getName());
         FadeTransition transition = new FadeTransition(Duration.seconds(1), this.layout);

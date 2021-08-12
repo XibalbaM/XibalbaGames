@@ -1,20 +1,26 @@
 package fr.xibalba.games.ui;
 
-import com.guigarage.responsive.ResponsiveHandler;
 import fr.xibalba.games.main.Const;
 import fr.xibalba.games.main.GameCore;
+import fr.xibalba.games.main.panels.TopPanel;
 import fr.xibalba.games.ui.panel.IPanel;
 import fr.xibalba.games.ui.panel.Panel;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import libs.arilibfx.ui.utils.ResizeHelper;
 
 public class PanelManager {
 
     private final GameCore gameCore;
     private final Stage stage;
     private Scene scene;
-    private GridPane layout;
+    private GridPane layout = new GridPane(), centerPanel = new GridPane();
+    private TopPanel topPanel = new TopPanel();
     private IPanel currentPanel;
 
     public PanelManager(GameCore gameCore, Stage stage) {
@@ -27,26 +33,35 @@ public class PanelManager {
 
         this.currentPanel = new Panel();
         this.stage.setTitle(Const.TITLE);
-        this.stage.centerOnScreen();
-
-        this.layout = new GridPane();
-
-        this.scene = new Scene(this.layout, 1000, 600);
-        this.stage.setScene(this.scene);
-        ResponsiveHandler.addResponsiveToWindow(this.stage);
-
         this.stage.setMinWidth(500);
         this.stage.setWidth(1000);
         this.stage.setMinHeight(300);
         this.stage.setHeight(600);
+        this.stage.centerOnScreen();
+
+        this.scene = new Scene(this.layout, 1000, 600);
+        this.stage.setScene(this.scene);
+        ResizeHelper.addResizeListener(this.stage, 500, 300, Integer.MAX_VALUE, Integer.MAX_VALUE);
+
+        RowConstraints topPanelConstraints = new RowConstraints();
+        topPanelConstraints.setValignment(VPos.TOP);
+        topPanelConstraints.setMinHeight(30);
+        topPanelConstraints.setMaxHeight(30);
+        this.layout.getRowConstraints().addAll(topPanelConstraints, new RowConstraints());
+        this.layout.add(this.topPanel.getLayout(), 0, 0);
+        this.topPanel.init(this);
+        this.layout.add(this.centerPanel, 0, 1);
+        GridPane.setVgrow(this.centerPanel, Priority.ALWAYS);
+        GridPane.setHgrow(this.centerPanel, Priority.ALWAYS);
 
         this.stage.widthProperty().addListener((observable, oldValue, newValue) -> this.onResize());
         this.stage.heightProperty().addListener((observable, oldValue, newValue) -> this.onResize());
 
+        this.stage.initStyle(StageStyle.UNDECORATED);
         this.stage.show();
     }
 
-    private void onResize() {
+    public void onResize() {
 
         this.currentPanel.doSize();
     }
@@ -59,12 +74,12 @@ public class PanelManager {
     public void showPanel(IPanel panel, boolean init) {
 
         this.currentPanel.onHide();
-        this.layout.getChildren().clear();
-        this.layout.getChildren().add(panel.getLayout());
+        this.centerPanel.getChildren().clear();
+        this.centerPanel.getChildren().add(panel.getLayout());
         this.currentPanel = panel;
         if (init)
             panel.init(this);
-        currentPanel.doSize();
+        this.currentPanel.doSize();
         panel.onShow();
     }
 
@@ -78,12 +93,12 @@ public class PanelManager {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        this.layout.getChildren().clear();
-        this.layout.getChildren().add(panel.getLayout());
+        this.centerPanel.getChildren().clear();
+        this.centerPanel.getChildren().add(panel.getLayout());
         this.currentPanel = panel;
-        currentPanel.init(this);
-        currentPanel.doSize();
-        currentPanel.onRefresh();
+        this.currentPanel.init(this);
+        this.currentPanel.doSize();
+        this.currentPanel.onRefresh();
     }
 
     public Stage getStage() {
@@ -106,5 +121,15 @@ public class PanelManager {
     public GridPane getLayout() {
 
         return layout;
+    }
+
+    public GridPane getCenterPanel() {
+
+        return centerPanel;
+    }
+
+    public TopPanel getTopPanel() {
+
+        return topPanel;
     }
 }

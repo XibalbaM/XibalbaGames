@@ -18,7 +18,7 @@
 
     <repositories>
         <repository>
-            <id>jCenter</id>
+            <id>JCenter</id>
             <url>https://jcenter.bintray.com/</url>
         </repository>
     </repositories>
@@ -61,11 +61,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-javafx</artifactId>
-            <version>12.2.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.kordamp.bootstrapfx</groupId>
             <artifactId>bootstrapfx-core</artifactId>
             <version>0.4.0</version>
@@ -106,13 +101,8 @@
         </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx</artifactId>
-            <version>8.9</version>
-        </dependency>
-        <dependency>
-            <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-controls</artifactId>
-            <version>9.1.2</version>
+            <version>11.0</version>
         </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
@@ -122,38 +112,128 @@
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-emojione</artifactId>
-            <version>3.1.1-9.1.2</version>
+            <version>2.2.7-11</version>
         </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-icons525</artifactId>
-            <version>4.2.0-9.1.2</version>
+            <version>3.0.0-11</version>
         </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-materialdesignfont</artifactId>
-            <version>2.0.26-9.1.2</version>
+            <version>1.7.22-11</version>
         </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-materialicons</artifactId>
-            <version>2.2.0-9.1.2</version>
+            <version>2.2.0-11</version>
         </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx-materialstackicons</artifactId>
-            <version>2.1-5-9.1.2</version>
+            <artifactId>fontawesomefx-materialicons</artifactId>
+            <version>2.2.0-11</version>
         </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-octicons</artifactId>
-            <version>4.3.0-9.1.2</version>
+            <version>4.3.0-11</version>
         </dependency>
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-weathericons</artifactId>
-            <version>2.0.10-9.1.2</version>
+            <version>2.0.10-11</version>
         </dependency>
+        <!--ikonli-->
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+            <version>11.3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-materialdesign-pack</artifactId>
+            <version>11.3.5</version>
+        </dependency>
+        <!--Layout libs-->
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout</artifactId>
+            <version>3.7.4</version>
+        </dependency>
+        <!--Widget libs-->
+        <dependency>
+            <groupId>eu.hansolo</groupId>
+            <artifactId>Medusa</artifactId>
+            <version>16.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.hansolo</groupId>
+            <artifactId>tilesfx</artifactId>
+            <version>16.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.jsilhouette</groupId>
+            <artifactId>jsilhouette-javafx</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jidesoft</groupId>
+            <artifactId>jidefx-common</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fxmisc.richtext</groupId>
+            <artifactId>richtextfx</artifactId>
+            <version>0.10.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jfxtras</groupId>
+            <artifactId>jfxtras-labs</artifactId>
+            <version>9.0-r1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.object-refinery</groupId>
+            <artifactId>orsoncharts</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <!--Styling libs-->
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version>
+        </dependency>
+        <!--Frameworks-->
+        <dependency>
+            <groupId>com.airhacks</groupId>
+            <artifactId>afterburner.fx</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jacpfx</groupId>
+            <artifactId>jacpfx.API</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>de.saxsys</groupId>
+            <artifactId>mvvmfx</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.griffon</groupId>
+            <artifactId>griffon-core</artifactId>
+            <version>2.15.1</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.kordamp.basilisk</groupId>
+            <artifactId>basilisk-core</artifactId>
+            <version>0.4.0</version>
+        </dependency>-->
     </dependencies>
 
     <build>
