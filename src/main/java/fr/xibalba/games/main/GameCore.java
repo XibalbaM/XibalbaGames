@@ -3,6 +3,7 @@ package fr.xibalba.games.main;
 import fr.xibalba.games.main.entities.Game;
 import fr.xibalba.games.main.panels.MainMenuPanel;
 import fr.xibalba.games.ui.PanelManager;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.net.URI;
@@ -51,7 +52,8 @@ public class GameCore {
 
     public static void stopApp() {
 
-        System.exit(0);
+        getPanelManager().getCurrentPanel().onHide();
+        Platform.exit();
     }
 
     public static PanelManager getPanelManager() {
@@ -72,5 +74,10 @@ public class GameCore {
     public static double getHeight() {
 
         return getPanelManager().getCenterPanel().getHeight();
+    }
+
+    public static Path getModsDirectory() {
+
+        return modsDirectory;
     }
 }

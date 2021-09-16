@@ -23,13 +23,13 @@ public class MainMenuPanel extends AMenuPanel {
 
         title = new Label(Const.TITLE);
 
-        play = new TextMenuButton("PLAY", Font.font(45), getWidth() * 0.355, getHeight() * 0.085);
+        play = new TextMenuButton("JOUER", Font.font(45), getWidth() * 0.355, getHeight() * 0.085);
         play.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(new GamesListPanel()));
 
-        settings = new TextMenuButton("SETTINGS", Font.font(30), 170, 40);
+        settings = new TextMenuButton("PARAMETRES", Font.font(30), 170, 40);
         settings.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(new GlobalSettingsPanel(this)));
 
-        leave = new TextMenuButton("LEAVE", Font.font(30), 170, 40);
+        leave = new TextMenuButton("QUITTER", Font.font(30), 170, 40);
         leave.setOnMouseClicked(event -> GameCore.stopApp());
 
         root.getChildren().addAll(title, play, leave, settings);

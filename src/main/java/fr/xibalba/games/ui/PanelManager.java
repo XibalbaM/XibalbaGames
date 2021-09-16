@@ -5,6 +5,7 @@ import fr.xibalba.games.main.GameCore;
 import fr.xibalba.games.main.panels.TopPanel;
 import fr.xibalba.games.ui.panel.IPanel;
 import fr.xibalba.games.ui.panel.Panel;
+import javafx.application.Platform;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -36,10 +37,10 @@ public class PanelManager {
         this.stage.setMinWidth(500);
         this.stage.setWidth(1000);
         this.stage.setMinHeight(300);
-        this.stage.setHeight(600);
+        this.stage.setHeight(630);
         this.stage.centerOnScreen();
 
-        this.scene = new Scene(this.layout, 1000, 600);
+        this.scene = new Scene(this.layout, 1000, 630);
         this.stage.setScene(this.scene);
         ResizeHelper.addResizeListener(this.stage, 500, 300, Integer.MAX_VALUE, Integer.MAX_VALUE);
 
@@ -56,6 +57,11 @@ public class PanelManager {
 
         this.stage.widthProperty().addListener((observable, oldValue, newValue) -> this.onResize());
         this.stage.heightProperty().addListener((observable, oldValue, newValue) -> this.onResize());
+
+        this.stage.setOnCloseRequest(windowEvent -> {
+            this.currentPanel.onHide();
+            Platform.exit();
+        });
 
         this.stage.initStyle(StageStyle.UNDECORATED);
         this.stage.show();
@@ -81,6 +87,8 @@ public class PanelManager {
             panel.init(this);
         this.currentPanel.doSize();
         panel.onShow();
+        if (!init)
+            panel.onRefresh();
     }
 
     public void updatePanel() {

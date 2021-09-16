@@ -6,11 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 public class ImageMenuButton extends StackPane {
 
@@ -21,8 +18,8 @@ public class ImageMenuButton extends StackPane {
         this.image = image;
 
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(width - 10);
-        imageView.setFitHeight(height - 10);
+        imageView.setFitWidth(width - 15);
+        imageView.setFitHeight(height - 15);
 
         Rectangle rectangle = new Rectangle(width, height);
         rectangle.setOpacity(1);
@@ -44,5 +41,9 @@ public class ImageMenuButton extends StackPane {
         });
 
         this.getChildren().addAll(rectangle, imageView);
+    }
+
+    public void setSize(double width, double height) {
+
     }
 }

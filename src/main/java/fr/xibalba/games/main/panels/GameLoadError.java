@@ -28,7 +28,7 @@ public class GameLoadError extends AMenuPanel {
 
         super.init(panelManager);
 
-        text = new Text("FAILED TO LOAD THE GAME:");
+        text = new Text("ÉCHEC DU CHARGEMENT DU JEU :");
         text.setTextOrigin(VPos.CENTER);
         text.setFill(Color.DARKRED);
 
@@ -39,7 +39,7 @@ public class GameLoadError extends AMenuPanel {
         gameName.setY(300);
         gameName.setFill(Color.DARKRED);
 
-        back = new TextMenuButton("BACK", Font.font(40), 150, 35);
+        back = new TextMenuButton("RETOUR", Font.font(40), 150, 35);
         back.setTranslateX(425);
         back.setTranslateY(375);
         back.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(new GamesListPanel()));

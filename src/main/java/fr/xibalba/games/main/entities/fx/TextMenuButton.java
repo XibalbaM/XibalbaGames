@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 public class TextMenuButton extends StackPane {
 
     private String name;
-    private Rectangle rectangle;
+    private Rectangle rectangle, collide;
     private Text text;
 
     public TextMenuButton(String name, double width, double height) {
@@ -24,10 +24,17 @@ public class TextMenuButton extends StackPane {
 
         this.name = name;
         this.setPrefSize(width, height);
+        this.setMaxSize(width, height);
+        this.setMinSize(width, height);
 
         text = new Text(name);
         text.setFont(font);
         text.setFill(Color.WHITE);
+
+        collide = new Rectangle(width, height);
+        collide.setOpacity(0);
+        collide.widthProperty().bind(this.widthProperty());
+        collide.heightProperty().bind(this.heightProperty());
 
         rectangle = new Rectangle(width, height);
         rectangle.setOpacity(1);
@@ -40,7 +47,7 @@ public class TextMenuButton extends StackPane {
 
         this.setAlignment(Pos.CENTER);
 
-        this.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+        collide.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
             if (newValue) {
                 rectangle.setFill(Color.gray(0.1));
             } else {
@@ -48,7 +55,7 @@ public class TextMenuButton extends StackPane {
             }
         });
 
-        this.getChildren().addAll(rectangle, text);
+        this.getChildren().addAll(rectangle, text, collide);
     }
 
     public void setSize(double width, double height) {
@@ -59,8 +66,15 @@ public class TextMenuButton extends StackPane {
     public void setSize(double width, double height, Font font) {
 
         this.setPrefSize(width, height);
+        this.setMaxSize(width, height);
+        this.setMinSize(width, height);
         text.setFont(font);
         rectangle.setWidth(width);
         rectangle.setHeight(height);
+    }
+
+    public void setText(String text) {
+
+        this.text.setText(text);
     }
 }

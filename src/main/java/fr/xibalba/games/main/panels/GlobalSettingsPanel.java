@@ -28,11 +28,11 @@ public class GlobalSettingsPanel extends AMenuPanel {
 
         super.init(panelManager);
 
-        text = new Text("COMING SOON !");
+        text = new Text("ARRIVE BIENTOT !");
         text.setTextOrigin(VPos.CENTER);
         text.setFill(Color.DARKGREEN);
 
-        back = new TextMenuButton("BACK", Font.font(40), 150, 35);
+        back = new TextMenuButton("RETOUR", Font.font(40), 150, 35);
         back.setTranslateX(425);
         back.setTranslateY(375);
         back.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(this.oldPanel, false));

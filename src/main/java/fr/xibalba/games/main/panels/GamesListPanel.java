@@ -3,10 +3,12 @@ package fr.xibalba.games.main.panels;
 import fr.xibalba.games.main.GameCore;
 import fr.xibalba.games.main.entities.Game;
 import fr.xibalba.games.main.entities.fx.GameView;
+import fr.xibalba.games.main.entities.fx.ImageMenuButton;
 import fr.xibalba.games.main.entities.fx.TextMenuButton;
 import fr.xibalba.games.ui.PanelManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -14,6 +16,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,23 +31,20 @@ public class GamesListPanel extends AMenuPanel {
     private ScrollPane scrollPane;
     private VBox gameList;
     private List<GameView> gameViews = new ArrayList<>();
+    ImageMenuButton reloadButton, openFolderButton;
 
     @Override
     public void init(PanelManager panelManager) {
 
         super.init(panelManager);
 
-        back = new TextMenuButton("BACK", Font.font(35), 150, 35);
+        back = new TextMenuButton("RETOUR", Font.font(35), 150, 35);
         back.setTranslateX(20);
         back.setTranslateY(545);
         back.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(new MainMenuPanel()));
 
-        /*ImageMenuButton test = new ImageMenuButton(Const.AXIUM_LOGO, 30 + 10, 30 + 10);
-        test.setTranslateX(20);
-        test.setTranslateY(20);
-        test.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(this.oldPanel, false));*/
-
         this.initGameList();
+        this.initButtons();
 
         this.root.getChildren().addAll(back);
     }
@@ -63,13 +65,45 @@ public class GamesListPanel extends AMenuPanel {
         for (Game game : GameCore.getGames()) {
 
             GameView view = GameView.gameToView(game);
-            view.setOnMouseClicked(event -> GameCore.getPanelManager().showPanel(new GameLoadError(game)));
+            view.setOnMouseClicked(event -> {
+                try {
+                    game.main().invoke(null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    GameCore.getPanelManager().showPanel(new GameLoadError(game));
+                }
+            });
             gameViews.add(view);
             gameList.getChildren().add(view);
         }
 
         scrollPane.setContent(gameList);
         this.root.getChildren().add(scrollPane);
+    }
+
+    private void initButtons() {
+
+        openFolderButton = new ImageMenuButton(new Image(this.getClass().getClassLoader().getResource("images/folder-icon.png").toExternalForm()), 50 + 10, 50 + 10);
+        openFolderButton.setOnMouseClicked(event -> {
+            try {
+                Desktop.getDesktop().open(new File(GameCore.getModsDirectory().toString()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        openFolderButton.setTranslateX(20);
+        openFolderButton.setTranslateY(20);
+
+        reloadButton = new ImageMenuButton(new Image(this.getClass().getClassLoader().getResource("images/reload-icons.png").toExternalForm()), 50 + 10, 50 + 10);
+        reloadButton.setOnMouseClicked(event -> this.reloadGameList());
+        reloadButton.setTranslateX(20);
+        reloadButton.setTranslateY(100);
+
+        this.root.getChildren().addAll(openFolderButton, reloadButton);
+    }
+
+    public void reloadGameList() {
+
     }
 
     @Override
@@ -96,6 +130,10 @@ public class GamesListPanel extends AMenuPanel {
         for (GameView gameView : this.gameViews) {
             gameView.doSize();
         }
+    }
+
+    private void doButtonsSize() {
+
     }
 
     @Override
