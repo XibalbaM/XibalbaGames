@@ -6,7 +6,7 @@ import fr.xibalba.games.ui.PanelManager;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-import java.net.URI;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -28,11 +28,7 @@ public class GameCore {
             String jarPos = "file:" + GameCore.class.getProtectionDomain().getCodeSource().getLocation().getPath();
             System.out.println(jarPos);
 
-            if (jarPos.endsWith(".jar")) {
-                modsDirectory = Path.of(new URI(jarPos.substring(0, jarPos.length() - "Games.jar".length()) + "mods/"));
-            } else if (jarPos.endsWith("/")) {
-                modsDirectory = Path.of(new URI(jarPos + "mods/"));
-            }
+            this.modsDirectory = new File(jarPos).getParentFile().toPath();
             System.out.println(modsDirectory.toString());
 
             if (!(Files.exists(modsDirectory) && Files.isDirectory(modsDirectory))) {
