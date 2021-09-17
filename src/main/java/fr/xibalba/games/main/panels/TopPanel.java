@@ -18,6 +18,7 @@ import javafx.scene.text.FontWeight;
 public class TopPanel extends Panel {
 
     private GridPane topBar;
+    private MaterialDesignIconView close, fullScreen, hide;
 
     @Override
     public void init(PanelManager manager) {
@@ -52,11 +53,11 @@ public class TopPanel extends Panel {
         GridPane.setVgrow(topBarButton, Priority.ALWAYS);
         GridPane.setHalignment(topBarButton, HPos.RIGHT);
 
-        MaterialDesignIconView close = new MaterialDesignIconView(MaterialDesignIcon.WINDOW_CLOSE);
+        close = new MaterialDesignIconView(MaterialDesignIcon.WINDOW_CLOSE);
         GridPane.setVgrow(close, Priority.ALWAYS);
-        MaterialDesignIconView fullScreen = new MaterialDesignIconView(MaterialDesignIcon.WINDOW_MAXIMIZE);
+        fullScreen = new MaterialDesignIconView(MaterialDesignIcon.WINDOW_MAXIMIZE);
         GridPane.setVgrow(fullScreen, Priority.ALWAYS);
-        MaterialDesignIconView hide = new MaterialDesignIconView(MaterialDesignIcon.WINDOW_MINIMIZE);
+        hide = new MaterialDesignIconView(MaterialDesignIcon.WINDOW_MINIMIZE);
         GridPane.setVgrow(hide, Priority.ALWAYS);
         close.setFill(Color.WHITE);
         close.setOpacity(0.70f);
@@ -95,5 +96,20 @@ public class TopPanel extends Panel {
     public String getName() {
 
         return "paneltop";
+    }
+
+    public MaterialDesignIconView getClose() {
+
+        return close;
+    }
+
+    public MaterialDesignIconView getFullScreen() {
+
+        return fullScreen;
+    }
+
+    public MaterialDesignIconView getHide() {
+
+        return hide;
     }
 }

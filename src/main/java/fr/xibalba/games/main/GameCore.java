@@ -36,7 +36,6 @@ public class GameCore {
             loadGamesThread = new Thread(() -> {
 
                 games = GameDetection.getGames(modsDirectory.toPath());
-                System.out.println(games.size());
             }, "loadGamesThread");
             loadGamesThread.start();
         } catch (Exception e) {
@@ -60,6 +59,11 @@ public class GameCore {
         return games;
     }
 
+    public static void setGames(List<Game> games) {
+
+        GameCore.games = games;
+    }
+
     public static double getWidth() {
 
         return getPanelManager().getCenterPanel().getWidth();
@@ -73,5 +77,10 @@ public class GameCore {
     public static File getModsDirectory() {
 
         return modsDirectory;
+    }
+
+    public static Thread getLoadGamesThread() {
+
+        return loadGamesThread;
     }
 }

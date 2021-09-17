@@ -1,12 +1,10 @@
 package fr.xibalba.games.main;
 
 import fr.xibalba.games.main.entities.Game;
-import fr.xibalba.games.main.entities.InstrumentHook;
 import javafx.scene.image.Image;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -82,9 +80,7 @@ public class GameDetection {
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
             for (Path file : stream) {
-                System.out.println(file.getFileName());
                 if (file != null && file.getFileName().toString().endsWith(".jar")) {
-                    System.out.println("is a jar");
                     result.add(file.toFile());
                 }
             }

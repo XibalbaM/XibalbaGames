@@ -1,11 +1,13 @@
 package fr.xibalba.games.main.panels;
 
 import fr.xibalba.games.main.GameCore;
+import fr.xibalba.games.main.GameDetection;
 import fr.xibalba.games.main.entities.Game;
 import fr.xibalba.games.main.entities.fx.GameView;
 import fr.xibalba.games.main.entities.fx.ImageMenuButton;
 import fr.xibalba.games.main.entities.fx.TextMenuButton;
 import fr.xibalba.games.ui.PanelManager;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -104,6 +106,13 @@ public class GamesListPanel extends AMenuPanel {
 
     public void reloadGameList() {
 
+        Thread thread = new Thread(() -> {
+
+            GameCore.setGames(GameDetection.getGames(GameCore.getModsDirectory().toPath()));
+
+            Platform.runLater(() -> GameCore.getPanelManager().showPanel(new GamesListPanel()));
+        });
+        thread.start();
     }
 
     @Override
