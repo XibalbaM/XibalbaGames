@@ -7,15 +7,13 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 public class GameCore {
 
     private static PanelManager panelManager;
     private static List<Game> games;
-    private static Path modsDirectory;
+    private static File modsDirectory;
     private static Thread loadGamesThread;
 
     public void init(Stage stage) {
@@ -25,19 +23,19 @@ public class GameCore {
         panelManager.showPanel(new MainMenuPanel());
 
         try {
-            String jarPos = "file:" + GameCore.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+            String jarPos = GameCore.class.getProtectionDomain().getCodeSource().getLocation().getPath();
             System.out.println(jarPos);
 
-            this.modsDirectory = new File(jarPos).getParentFile().toPath();
+            this.modsDirectory = new File(new File(jarPos).getParent() + "/mods");
             System.out.println(modsDirectory.toString());
 
-            if (!(Files.exists(modsDirectory) && Files.isDirectory(modsDirectory))) {
-                Files.createDirectory(modsDirectory);
+            if (!(modsDirectory.exists() && modsDirectory.isDirectory())) {
+                modsDirectory.createNewFile();
             }
 
             loadGamesThread = new Thread(() -> {
 
-                games = GameDetection.getGames(modsDirectory);
+                games = GameDetection.getGames(modsDirectory.toPath());
                 System.out.println(games.size());
             }, "loadGamesThread");
             loadGamesThread.start();
@@ -72,7 +70,7 @@ public class GameCore {
         return getPanelManager().getCenterPanel().getHeight();
     }
 
-    public static Path getModsDirectory() {
+    public static File getModsDirectory() {
 
         return modsDirectory;
     }
