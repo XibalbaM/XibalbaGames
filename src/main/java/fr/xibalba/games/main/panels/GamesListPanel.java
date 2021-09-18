@@ -6,6 +6,7 @@ import fr.xibalba.games.main.entities.Game;
 import fr.xibalba.games.main.entities.fx.GameView;
 import fr.xibalba.games.main.entities.fx.ImageMenuButton;
 import fr.xibalba.games.main.entities.fx.TextMenuButton;
+import fr.xibalba.games.main.panels.popup.ReloadingPopup;
 import fr.xibalba.games.ui.PanelManager;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -23,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static fr.xibalba.games.main.GameCore.getHeight;
 import static fr.xibalba.games.main.GameCore.getWidth;
@@ -108,8 +110,12 @@ public class GamesListPanel extends AMenuPanel {
 
         Thread thread = new Thread(() -> {
 
+            AtomicReference<ReloadingPopup> popup = new AtomicReference<>();
+            Platform.runLater(() -> popup.set(new ReloadingPopup()));
+
             GameCore.setGames(GameDetection.getGames(GameCore.getModsDirectory().toPath()));
 
+            Platform.runLater(() -> popup.get().close());
             Platform.runLater(() -> GameCore.getPanelManager().showPanel(new GamesListPanel()));
         });
         thread.start();
