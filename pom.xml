@@ -11,8 +11,10 @@
     <modules>
         <module>2048</module>
         <module>GameOfLife</module>
+        <module>Snake</module>
+        <module>Pong</module>
     </modules>
-    <name>Pong</name>
+    <name>Games</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

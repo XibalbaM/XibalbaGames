@@ -33,17 +33,21 @@ public class CalculatorThread extends Thread {
                 return;
             }
 
-            if (GameOfLifePanel.isRunning()) {
+            if (panel.isRunning()) {
 
                 System.out.println("Calc");
+
+                int[][] oldDatas = cellsData;
 
                 for (int i = 0; i < panel.getSizeX(); i++) {
                     for (int j = 0; j < panel.getSizeY(); j++) {
 
                         byte neighbours = 0;
 
-                        if (cells[(i - 1 + panel.getSizeX()) % panel.getSizeX()][(j - 1 + panel.getSizeY()) % panel.getSizeY()].isAlive())
+                        if (cells[(i - 1 + panel.getSizeX()) % panel.getSizeX()][(j - 1 + panel.getSizeY()) %
+                                                                                 panel.getSizeY()].isAlive()) {
                             neighbours++;
+                        }
 
                         if (cells[i][(j - 1 + panel.getSizeY()) % panel.getSizeY()].isAlive())
                             neighbours++;
@@ -68,8 +72,9 @@ public class CalculatorThread extends Thread {
 
                         if (cells[i][j].isAlive()) {
 
-                            if (!rules.getSurviveIf()[neighbours])
+                            if (!rules.getSurviveIf()[neighbours]) {
                                 cellsData[i][j] = 0;
+                            }
                         } else {
 
                             if (rules.getBornIf()[neighbours]) {
@@ -77,6 +82,10 @@ public class CalculatorThread extends Thread {
                             }
                         }
                     }
+                }
+
+                if (oldDatas == cellsData) {
+                    panel.setRunning(false);
                 }
             }
         }

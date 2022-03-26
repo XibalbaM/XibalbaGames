@@ -25,12 +25,12 @@ public class GameDetection {
         List<Game> result = new ArrayList<>();
 
         for (File jar : getJars(directory)) {
-
             try {
-
                 for (Class aClass : getAllClassesOfAJar(jar)) {
+                    System.out.println(aClass.getName());
                     for (Method method : aClass.getMethods()) {
                         if (method.isAnnotationPresent(fr.xibalba.games.main.annotations.Game.class)) {
+                            System.out.println("test");
                             fr.xibalba.games.main.annotations.Game gameMain = method.getAnnotation(fr.xibalba.games.main.annotations.Game.class);
                             Image icon = gameMain.iconURL() == null || gameMain.iconURL().equals("") ? null : new Image(gameMain.iconURL());
                             result.add(new Game(icon, gameMain.name(), gameMain.description(), method));
@@ -62,9 +62,12 @@ public class GameDetection {
                     continue;
                 }
                 // -6 because of .class
-                String className = je.getName().substring(0, je.getName().length() - (je.getName().endsWith(".java") ? 5 : 6));
+                String className =
+                        je.getName().substring(0, je.getName().length() - (je.getName().endsWith(".java") ? 5 : 6));
                 className = className.replace('/', '.');
-                result.add(cl.loadClass(className));
+                if (className.startsWith("fr")) {
+                    result.add(cl.loadClass(className));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

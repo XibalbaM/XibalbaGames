@@ -7,7 +7,7 @@ import fr.xibalba.games.main.annotations.Game;
 public class Main {
 
     @Game(name = "Jeu de la Vie", description = "Le célebre Game Of Life !")
-    public static void start() {
+    public static void main() {
 
         System.out.println("Starting Game Of Life");
 

@@ -10,7 +10,9 @@ import java.lang.annotation.Target;
 public @interface Game {
 
     public String name();
-    public String description();
+
+    public String description() default "";
+
     /*
      * Need to be an absolute path
      */

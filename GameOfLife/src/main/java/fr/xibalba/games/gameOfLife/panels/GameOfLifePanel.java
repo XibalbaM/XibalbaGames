@@ -10,7 +10,9 @@ import fr.xibalba.games.ui.PanelManager;
 import fr.xibalba.games.ui.panel.Panel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -34,7 +36,8 @@ public class GameOfLifePanel extends Panel {
     private Cell[][] cells;
     private GameOfLifeRules rules = new GameOfLifeRules(false, false, true, true, false, false, false, false, false,
             false, false, false, true, false, false, false, false, false);
-    private static boolean isRunning = false, rightClick = false;
+    private BooleanProperty isRunning = new SimpleBooleanProperty(false);
+    private static boolean rightClick = false;
     private Slider speedSlider;
     private CalculatorThread calculatorThread;
     private IntegerProperty currentCycle = new SimpleIntegerProperty(0);
@@ -119,15 +122,21 @@ public class GameOfLifePanel extends Panel {
         TextMenuButton playButton = new TextMenuButton("Lancer", 200, 75);
         GridPane.setValignment(playButton, VPos.CENTER);
         GridPane.setHalignment(playButton, HPos.CENTER);
-
-        playButton.setOnMouseClicked(event -> {
-            if (!isRunning) {
-                playButton.setText("Arreter");
-                isRunning = true;
-            } else {
+        isRunning.addListener((observableValue, aBoolean, t1) -> {
+            if (aBoolean) {
                 playButton.setText("Lancer");
-                isRunning = false;
+                System.out.println("Lancer");
+            } else {
+                playButton.setText("Arreter");
+                System.out.println("Arreter");
+            }
+        });
+        playButton.setOnMouseClicked(event -> {
+            if (!isRunning.getValue()) {
+                isRunning.setValue(true);
                 currentCycle.set(0);
+            } else {
+                isRunning.setValue(false);
             }
         });
 
@@ -222,9 +231,8 @@ public class GameOfLifePanel extends Panel {
                 }
             }
 
-            if (isRunning) {
+            if (isRunning.getValue()) {
                 this.currentCycle.set(this.currentCycle.get() + 1);
-                System.out.println("hi");
             }
 
             synchronized (calculatorThread) {
@@ -287,9 +295,14 @@ public class GameOfLifePanel extends Panel {
         return rules;
     }
 
-    public static boolean isRunning() {
+    public boolean isRunning() {
 
-        return isRunning;
+        return isRunning.get();
+    }
+
+    public void setRunning(boolean isRunning) {
+
+        this.isRunning.set(isRunning);
     }
 
     public static boolean isRightClick() {
