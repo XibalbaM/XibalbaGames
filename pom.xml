@@ -13,6 +13,7 @@
         <module>GameOfLife</module>
         <module>Snake</module>
         <module>Pong</module>
+        <module>Chess</module>
     </modules>
     <name>Games</name>
 

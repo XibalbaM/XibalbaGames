@@ -7,7 +7,7 @@ import fr.xibalba.games.ui.panel.Panel;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 
-public abstract class AMenuPanel extends Panel {
+public class AMenuPanel extends Panel {
 
     protected Pane root = new Pane();
 

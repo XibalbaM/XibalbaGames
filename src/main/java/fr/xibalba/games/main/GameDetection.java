@@ -27,10 +27,8 @@ public class GameDetection {
         for (File jar : getJars(directory)) {
             try {
                 for (Class aClass : getAllClassesOfAJar(jar)) {
-                    System.out.println(aClass.getName());
                     for (Method method : aClass.getMethods()) {
                         if (method.isAnnotationPresent(fr.xibalba.games.main.annotations.Game.class)) {
-                            System.out.println("test");
                             fr.xibalba.games.main.annotations.Game gameMain = method.getAnnotation(fr.xibalba.games.main.annotations.Game.class);
                             Image icon = gameMain.iconURL() == null || gameMain.iconURL().equals("") ? null : new Image(gameMain.iconURL());
                             result.add(new Game(icon, gameMain.name(), gameMain.description(), method));
